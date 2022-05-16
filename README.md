@@ -1,7 +1,3 @@
-# online-test
-Online Test
-
-
 # Instrucciones
 
 ## Clonar el proyecto
@@ -9,27 +5,18 @@ Online Test
 ```
 git clone https://github.com/diegoismael81/online-test.git
 ```
-Para actualizar el branch al que apuntamos en los repositorios, es necesario entrar a la carpeta salud_espe/:
-```
-cd salud_espe/
-```
-Después, apuntar a la rama develop es todos los submódulos con:
-```
-git submodule foreach --recursive "git checkout develop || true"
-```
+El primer paso es crear una rama que se derive de la rama `develop`:
 
-## Actualizar salud-espe y todos los submódulos
-Para esto es necesario correr el siguiente comando desde el directorio padre(salud-espe):
-```
-git pull --recurse-submodules
-```
-Al correr este comando es necesario cambiarse a develop nuevamente.
+## ¿Cómo nombrar a la rama?
+`feature-verbo infinitivo principal-complemento...`
+Ejemplo:
+`feature-cambiar-interfaz-login`
 
-## Actualizar un submodulo (Carpeta vacia)
-Para hacer esto es necesario correr el siguiente comando dentro del subrepositorio.
-```
-git submodule init
-git submodule update
-```
-## Trabajar en el proyecto
-Revisar las instrucciones que se encuentran en cada repositorio.
+## ¿Cómo subo mi código?
+1. Primero haciendo un commit `git commit -m 'Mensaje del commit'`.
+2. Luego `git push` y copiar el comando que sugiere git para publicar la nueva rama.
+
+## ¿Qué hago después subir?
+1. Se debe hacer un Pull Request de la rama subida hacia `develop`.
+2. Asignar la revisión del PR
+3. Esperar la revisión del PR.💪
