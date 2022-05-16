@@ -16,28 +16,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="TBL_QUESTIONS")
+@Table(name="TBL_OPTIONS")
 @Getter
 @Setter
-public class Question {
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-    
     @Column(name = "DESCRIPTION")
     private String description;
-    
-    @Column(name = "SCORE")    
-    private short score;
+
+    @Column(name = "IS_CORRECT")
+    private boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name="EXAM_ID", nullable=false)
-    private Exam exam;
-
-    @OneToMany(mappedBy = "question")
-    private List<Option> options;
-
+    @JoinColumn(name="QUESTION_ID", nullable=false)
+    private Question question;    
 }
