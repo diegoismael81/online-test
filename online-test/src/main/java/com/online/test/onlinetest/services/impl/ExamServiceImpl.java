@@ -1,11 +1,11 @@
 package com.online.test.onlinetest.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.online.test.onlinetest.dto.ExamDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
+import com.online.test.onlinetest.exceptions.ResourceNotFoundException;
 import com.online.test.onlinetest.models.Exam;
 import com.online.test.onlinetest.repositories.ExamRepository;
 import com.online.test.onlinetest.services.ExamService;
@@ -31,27 +31,23 @@ public class ExamServiceImpl implements ExamService {
     @Transactional
     public ExamDTO create(NewExamDTO examDTO) {
         Exam exam = modelMapper.map(examDTO, Exam.class);
-        examRepository.save(exam);
-        ExamDTO examDTOCreated = modelMapper.map(exam, ExamDTO.class); 
-        return examDTOCreated;
+        examRepository.save(exam);        
+        return modelMapper.map(exam, ExamDTO.class); 
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ExamDTO retrieve(Long id) throws Exception {
-        Optional<Exam> exam = examRepository.findById(id);
-        if(exam.isEmpty()){
-            throw new Exception("Exan not found");
-        }
-        //.orElseThrow(()-> new Exception("Exam not found"));
-        return modelMapper.map(exam.get(), ExamDTO.class);
+    public ExamDTO retrieve(Long id) {
+        Exam exam = examRepository.findById(id)
+            .orElseThrow(()-> new ResourceNotFoundException("Exam not found"));
+        return modelMapper.map(exam, ExamDTO.class);
     }
 
     @Override
     @Transactional
-    public ExamDTO update(ExamDTO examDTO, Long id) throws Exception {
+    public ExamDTO update(ExamDTO examDTO, Long id) {
         Exam exam = examRepository.findById(id)
-                .orElseThrow(()-> new Exception("Exam not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Exam not found"));
         
         exam.setId(id);
         exam = modelMapper.map(examDTO, Exam.class);
@@ -62,9 +58,9 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional
-    public void delete(Long id) throws Exception {
+    public void delete(Long id) {
         Exam exam = examRepository.findById(id)
-                .orElseThrow(()-> new Exception("Exam not found"));        
+                .orElseThrow(()-> new ResourceNotFoundException("Exam not found"));        
         examRepository.deleteById(exam.getId());        
     }
 

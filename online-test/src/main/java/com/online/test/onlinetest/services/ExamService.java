@@ -8,9 +8,9 @@ import com.online.test.onlinetest.dto.NewExamDTO;
 public interface ExamService {
     
     public ExamDTO create(NewExamDTO examDTO);
-    public ExamDTO retrieve(Long id) throws Exception;
-    public ExamDTO update(ExamDTO examDTO, Long id) throws Exception;
-    public void delete(Long id) throws Exception;
+    public ExamDTO retrieve(Long id);
+    public ExamDTO update(ExamDTO examDTO, Long id);
+    public void delete(Long id);
 
     public List<ExamDTO> list();
 }

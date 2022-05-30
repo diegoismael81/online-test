@@ -2,6 +2,8 @@ package com.online.test.onlinetest.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.online.test.onlinetest.dto.ExamDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
 import com.online.test.onlinetest.services.ExamService;
@@ -22,65 +24,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/exams")
 public class ExamenController {
     private final ExamService service;
-
-    // post /exams
-    //get /exams/{id}
-    //get /exams
-
+  
     @Autowired
     public ExamenController(ExamService srv){
         this.service =srv;
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody NewExamDTO examDTO){
-        try {
-            ExamDTO result = service.create(examDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
+    public ResponseEntity<ExamDTO> create(@Valid @RequestBody NewExamDTO examDTO){
+        ExamDTO result = service.create(examDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);        
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> retrive(@PathVariable("id") Long id){
-        try {
-            ExamDTO result = service.retrieve(id);
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
+    public ResponseEntity<ExamDTO> retrive(@PathVariable("id") Long id){
+        ExamDTO result = service.retrieve(id);
+        return ResponseEntity.ok().body(result);        
     }
 
     @GetMapping() //el verbo es diferente a create ya que va
-    public ResponseEntity<?> list(){
-        try {
-            List <ExamDTO> result  = service.list();
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
+    public ResponseEntity<List<ExamDTO>> list(){
+        List<ExamDTO> result  = service.list();
+        return ResponseEntity.ok().body(result);        
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody ExamDTO examDTO, @PathVariable("id") Long id){
-        try {
-            ExamDTO result = service.update(examDTO, id);
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
+    public ResponseEntity<ExamDTO> update(@RequestBody ExamDTO examDTO, @PathVariable("id") Long id){
+        ExamDTO result = service.update(examDTO, id);
+        return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete( @PathVariable("id") Long id){
-        try {
-             service.delete(id);;
-            return ResponseEntity.ok().body("Exam deleted!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
+    public ResponseEntity<String> delete(@PathVariable("id") Long id){
+        service.delete(id);
+        return ResponseEntity.ok().body("Exam deleted!");        
     }
-
-
 }
