@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-OnlineTestApplication<online-test>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.online.test.onlinetest.OnlineTestApplication",
+            "projectName": "online-test",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
