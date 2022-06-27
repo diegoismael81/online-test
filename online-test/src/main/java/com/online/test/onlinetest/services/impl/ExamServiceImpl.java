@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.online.test.onlinetest.dto.ExamDTO;
+import com.online.test.onlinetest.dto.ExamListDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
 import com.online.test.onlinetest.exceptions.ResourceNotFoundException;
 import com.online.test.onlinetest.models.Exam;
@@ -11,7 +12,6 @@ import com.online.test.onlinetest.repositories.ExamRepository;
 import com.online.test.onlinetest.services.ExamService;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +21,7 @@ public class ExamServiceImpl implements ExamService {
     final ModelMapper modelMapper;
     final ExamRepository examRepository;
 
-    @Autowired
-    public ExamServiceImpl(@Autowired ExamRepository repository, ModelMapper mapper){
+    public ExamServiceImpl(ExamRepository repository, ModelMapper mapper){
         this.examRepository = repository;
         this.modelMapper = mapper;
     }
@@ -66,9 +65,9 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExamDTO> list() {
+    public List<ExamListDTO> list() {
         List<Exam> exams = examRepository.findAll();
-        return exams.stream().map(exam -> modelMapper.map(exam, ExamDTO.class))
+        return exams.stream().map(exam -> modelMapper.map(exam, ExamListDTO.class))
             .collect(Collectors.toList());        
     }
     

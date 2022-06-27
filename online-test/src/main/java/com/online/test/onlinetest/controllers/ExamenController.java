@@ -5,12 +5,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.online.test.onlinetest.dto.ExamDTO;
+import com.online.test.onlinetest.dto.ExamListDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
 import com.online.test.onlinetest.services.ExamService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/exams")
 public class ExamenController {
     private final ExamService service;
   
-    @Autowired
     public ExamenController(ExamService srv){
         this.service =srv;
     }
@@ -43,8 +44,8 @@ public class ExamenController {
     }
 
     @GetMapping() //el verbo es diferente a create ya que va
-    public ResponseEntity<List<ExamDTO>> list(){
-        List<ExamDTO> result  = service.list();
+    public ResponseEntity<List<ExamListDTO>> list(){
+        List<ExamListDTO> result  = service.list();
         return ResponseEntity.ok().body(result);        
     }
 
