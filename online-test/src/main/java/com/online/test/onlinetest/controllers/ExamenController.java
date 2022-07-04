@@ -7,7 +7,9 @@ import javax.validation.Valid;
 import com.online.test.onlinetest.dto.ExamDTO;
 import com.online.test.onlinetest.dto.ExamListDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
+import com.online.test.onlinetest.dto.QuestionDTO;
 import com.online.test.onlinetest.services.ExamService;
+import com.online.test.onlinetest.services.QuestionService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/exams")
 public class ExamenController {
     private final ExamService service;
+    private final QuestionService serviceQuestion;
   
-    public ExamenController(ExamService srv){
+    public ExamenController(ExamService srv, QuestionService srvQ){
         this.service =srv;
+        this.serviceQuestion = srvQ;
     }
 
     @PostMapping()
@@ -60,4 +64,13 @@ public class ExamenController {
         service.delete(id);
         return ResponseEntity.ok().body("Exam deleted!");        
     }
+
+    @GetMapping("/{id}/questions")
+    public ResponseEntity<List<QuestionDTO>> listQuestions(@PathVariable("id") Long id){
+        List<QuestionDTO> questions = serviceQuestion.list(id);
+        return ResponseEntity.ok().body(questions);        
+    }
+
+
+
 }
