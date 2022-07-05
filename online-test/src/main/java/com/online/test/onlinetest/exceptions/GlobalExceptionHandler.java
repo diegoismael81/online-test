@@ -17,6 +17,11 @@ public class GlobalExceptionHandler {
         return new ErrorDetails(ex.getMessage(), request.getDescription(false));
     }
 
+    @ExceptionHandler(value = {NoContentException.class})
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public ErrorDetails noContentException(NoContentException ex, WebRequest request) {
+        return new ErrorDetails(ex.getMessage(), request.getDescription(false));
+    }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

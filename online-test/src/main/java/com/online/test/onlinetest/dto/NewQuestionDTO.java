@@ -11,5 +11,4 @@ public class NewQuestionDTO {
     private String name;
     private String description;
     private short score;
-    private ExamDTO exam;
 }

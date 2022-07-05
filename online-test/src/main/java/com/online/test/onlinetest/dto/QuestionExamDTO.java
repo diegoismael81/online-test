@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class QuestionDTO extends NewQuestionDTO {
-    private Long id;
+public class QuestionExamDTO extends QuestionDTO {    
+    private ExamDTO exam;
 }

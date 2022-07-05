@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.online.test.onlinetest.dto.ExamDTO;
 import com.online.test.onlinetest.dto.ExamListDTO;
 import com.online.test.onlinetest.dto.NewExamDTO;
+import com.online.test.onlinetest.exceptions.NoContentException;
 import com.online.test.onlinetest.exceptions.ResourceNotFoundException;
 import com.online.test.onlinetest.models.Exam;
 import com.online.test.onlinetest.repositories.ExamRepository;
@@ -67,6 +68,7 @@ public class ExamServiceImpl implements ExamService {
     @Transactional(readOnly = true)
     public List<ExamListDTO> list() {
         List<Exam> exams = examRepository.findAll();
+        if(exams.isEmpty()) throw new NoContentException("Exams is empty");
         return exams.stream().map(exam -> modelMapper.map(exam, ExamListDTO.class))
             .collect(Collectors.toList());        
     }
