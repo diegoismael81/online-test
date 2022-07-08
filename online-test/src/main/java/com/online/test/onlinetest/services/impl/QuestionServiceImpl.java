@@ -60,7 +60,9 @@ public class QuestionServiceImpl implements QuestionService {
         Exam exam = examRepository.findById(idExam)
         .orElseThrow(()-> new ResourceNotFoundException("Exam not found"));
         Question question = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Question not found"));
+        question = modelMapper.map(questionDTO, Question.class);
         question.setExam(exam);
+        repository.save(question);       
         return modelMapper.map(question, QuestionExamDTO.class);
     }
 
