@@ -43,12 +43,14 @@ public class OptionServiceImpl implements OptionService {
         Question question = questionRepository.findById(idQuestion).orElseThrow(()-> new ResourceNotFoundException("Question not found"));
         question.setExam(exam);
         List<OptionDTO> result = new ArrayList<OptionDTO>();
-        options.forEach(op -> {
+        for(NewOptionDTO op : options){
             Option option = modelMapper.map(op, Option.class);
             option.setQuestion(question);
             repository.save(option);
             result.add(modelMapper.map(option, OptionDTO.class));
-        });        
+        }
+        /*options.forEach(op -> {
+        });        */
         return result;
     }
 

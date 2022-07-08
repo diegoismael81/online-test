@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NewOptionDTO {
     private String description;
-    private boolean isCorrect;
+    private boolean correct;
 }

@@ -25,8 +25,8 @@ public class Option {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "IS_CORRECT")
-    private boolean isCorrect;
+    @Column(name = "CORRECT")
+    private boolean correct;
 
     @ManyToOne
     @JoinColumn(name="QUESTION_ID", nullable=false)
