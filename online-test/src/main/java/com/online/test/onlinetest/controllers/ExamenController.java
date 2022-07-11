@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -60,10 +61,19 @@ public class ExamenController {
     }
 
     /* ================ LIST ================ */
-    @GetMapping()
-    public ResponseEntity<List<ExamListDTO>> list(){
-        List<ExamListDTO> result  = service.list();
+    @GetMapping("/{page}/{size}")
+    public ResponseEntity<List<ExamListDTO>> list(@PathVariable("page") int page, 
+        @PathVariable("size") int size,
+        @RequestParam(name = "sort", required = false) String sort){
+        List<ExamListDTO> result  = service.list(page, size, sort);
         return ResponseEntity.ok().body(result);        
     }
+
+     /* ================ COUNT ================ */
+     @GetMapping("/count")
+     public ResponseEntity<Long> count(){
+         long result = service.count();
+         return ResponseEntity.ok().body(result);        
+     }
 
 }

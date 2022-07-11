@@ -12,6 +12,7 @@ public interface ExamService {
     public ExamDTO retrieve(Long id);
     public ExamDTO update(ExamDTO examDTO, Long id);
     public void delete(Long id);
+    public long count();
 
-    public List<ExamListDTO> list();
+    public List<ExamListDTO> list(int page, int size, String sort);
 }
