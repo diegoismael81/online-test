@@ -90,7 +90,7 @@ export const ExamList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {exams && exams.map((Exam, index) => (
+                        {exams && exams.map((Exam, index) => (                          
                             <tr key={index}>
                                 <td>{++index}</td>
                                 <td>{Exam.title}</td>
